@@ -1,4 +1,4 @@
-# $Id: plists.t,v 1.2 2002/10/06 00:31:15 comdog Exp $
+# $Id: plists.t,v 1.3 2002/12/18 10:29:02 comdog Exp $
 BEGIN {
 	use File::Find::Rule;
 	@plists = File::Find::Rule->file()->name( '*.plist' )->in( 'plists' );
@@ -12,6 +12,7 @@ use Mac::PropertyList;
 
 foreach my $file ( @plists )
 	{
+	print STDERR "Working on $file\n" if $ENV{PLIST_DEBUG} > 1;
 	unless( open FILE, $file )
 		{
 		ok( 0, "Could not open $file" );
