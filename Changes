@@ -3,10 +3,19 @@
 	* Removed requirements on Test::Manifest and Test::Pod
 	* Fixed warnings that show up under -w
 
+0.95 - Fri Mar 11 22:45:21 2005
+	* Added POD coverage tests, fixed issues
+	* no code changes: no need to upgrade
+
+0.95 - Thu Dec  2 03:23:26 2004
+	* added Exporter support so you can import the functions, just
+	like the examples showed.  Nothing is imported without you asking
+	for it.
+
 0.9 - Thu Sep  2 20:15:28 2004
-* fixed from with Time::HiRes tests
-* cleaned up distribution
-* No need to upgrade if you have the previous version (0.11)
+	* fixed from with Time::HiRes tests
+	* cleaned up distribution
+	* No need to upgrade if you have the previous version (0.11)
 
 0.51 - Tue Feb  3 16:39:39 2004
     * Refactored the module to get rid of goofy data structure---if you

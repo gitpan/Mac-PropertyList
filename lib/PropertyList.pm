@@ -1,4 +1,4 @@
-# $Id: PropertyList.pm,v 1.18 2004/12/02 09:16:38 comdog Exp $
+# $Id: PropertyList.pm,v 1.21 2005/03/12 04:48:48 comdog Exp $
 package Mac::PropertyList;
 use strict;
 
@@ -14,7 +14,7 @@ use base qw(Exporter);
 	'all' => \@EXPORT_OK,
 	);
 	
-$VERSION = 0.95;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.21 $ =~ m/ (\d+) \. (\d+) /xg;
 
 =head1 NAME
 
@@ -351,6 +351,13 @@ sub read_data
 	return Mac::PropertyList::data->new( $string );
 	}
 
+=item plist_as_string
+
+Turn the plist data structure into the plist string, which
+is the form the Mac likes to see it in.
+
+=cut
+
 sub plist_as_string
 	{
 	my $object = shift;
@@ -603,7 +610,7 @@ for help figuring out the recursion for nested structures.
 
 =head1 AUTHOR
 
-brian d foy, C<< <bdfoy@cpan.org> >>
+Copyright 2002-2005, brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 SEE ALSO
 
