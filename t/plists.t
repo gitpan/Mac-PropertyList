@@ -1,4 +1,4 @@
-# $Id: plists.t,v 1.1 2002/09/09 17:30:00 comdog Exp $
+# $Id: plists.t,v 1.2 2002/10/06 00:31:15 comdog Exp $
 BEGIN {
 	use File::Find::Rule;
 	@plists = File::Find::Rule->file()->name( '*.plist' )->in( 'plists' );
@@ -12,8 +12,14 @@ use Mac::PropertyList;
 
 foreach my $file ( @plists )
 	{
-	local @ARGV = ($file);
-	my $data = do { local $/; <> };
+	unless( open FILE, $file )
+		{
+		ok( 0, "Could not open $file" );
+		}
+		
+	my $data = do { local $/; <FILE> };
+	close FILE;
+
 	my $b = length $data;
 
 	my $time1 = [ gettimeofday ];
