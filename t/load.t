@@ -1,4 +1,4 @@
-# $Id: load.t,v 1.3 2002/09/02 04:06:11 comdog Exp $
+# $Id: load.t,v 1.4 2002/09/09 17:29:57 comdog Exp $
 BEGIN {
 	use File::Find::Rule;
 	@classes = map { my $x = $_;

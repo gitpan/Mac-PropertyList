@@ -1,4 +1,4 @@
-# $Id: Makefile.PL,v 1.5 2002/08/21 20:40:12 comdog Exp $
+# $Id: Makefile.PL,v 1.7 2002/09/09 17:48:01 comdog Exp $
 use ExtUtils::MakeMaker;
 
 my $tests = do {
@@ -9,7 +9,7 @@ my $tests = do {
 WriteMakefile
 	(
     'NAME'	    => 'Mac::PropertyList',
-    'VERSION'   => '0.05',
+    'VERSION'   => '0.06',
 	'PREREQ_PM' => { 
 		File::Find::Rule => 0,
 		Test::More       => 0,

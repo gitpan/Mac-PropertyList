@@ -1,4 +1,4 @@
-# $Id: PropertyList.pm,v 1.5 2002/08/16 17:04:39 comdog Exp $
+# $Id: PropertyList.pm,v 1.6 2002/09/09 17:44:58 comdog Exp $
 package Mac::PropertyList;
 use strict;
 
@@ -403,9 +403,23 @@ sub write_dict
 
 * actually test the write_* stuff
 
+* provided
+
 =head1 BUGS
 
-* probably a lot, but it's too soon to know about them
+* i've taken some shortcuts with the parsing, since balanced text parsing 
+can be really slow.  at the moment this module can't handle more than
+one level of nest dicts or arrays.  this breaks on some application's
+files:
+
+	com.apple.DiskCopy.plist
+	com.apple.dock.plist
+	com.apple.Preview.plist
+	com.apple.TextEdit.plist
+	org.aegidian.yaxjournal.plist
+	FruitMenu.prefPane/Contents/Resources/Library.plist
+	FruitMenu.prefPane/Contents/Resources/Presets.plist
+
 
 =head1 AUTHOR
 

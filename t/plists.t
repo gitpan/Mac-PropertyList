@@ -1,4 +1,4 @@
-# $Id: load.t,v 1.3 2002/09/02 04:06:11 comdog Exp $
+# $Id: plists.t,v 1.1 2002/09/09 17:30:00 comdog Exp $
 BEGIN {
 	use File::Find::Rule;
 	@plists = File::Find::Rule->file()->name( '*.plist' )->in( 'plists' );
