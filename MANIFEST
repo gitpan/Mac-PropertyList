@@ -6,3 +6,4 @@ Makefile.PL
 lib/PropertyList.pm
 t/load.t
 t/parse.t
+t/write.t
