@@ -1,4 +1,4 @@
-# $Id: Makefile.PL,v 1.10 2002/12/18 10:26:02 comdog Exp $
+# $Id: Makefile.PL,v 1.11 2003/02/04 01:50:27 comdog Exp $
 use ExtUtils::MakeMaker;
 
 sub ExtUtils::MM_Any::test_via_harness
@@ -16,6 +16,7 @@ WriteMakefile
     'VERSION_FROM'   => 'lib/PropertyList.pm',
 	'PREREQ_PM' => { 
 		'File::Find::Rule' => '0',
+		'MIME::Base64'     => '0',
 		'Test::Manifest'   => '0.91',
 		'Test::More'       => '0',
 		'Test::Pod'        => '0.9',

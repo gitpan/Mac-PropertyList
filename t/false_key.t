@@ -1,4 +1,4 @@
-# $Id: false_key.t,v 1.1 2003/01/31 17:20:11 comdog Exp $
+# $Id: false_key.t,v 1.2 2003/02/04 01:50:56 comdog Exp $
 BEGIN {
 	use File::Find::Rule;
 	@plists = File::Find::Rule->file()->name( '*.plist' )->in( 'plists' );
@@ -41,5 +41,5 @@ ok( $ok, "Zero and space are valid key values" );
 my $ok = eval {
 	my $plist = Mac::PropertyList::parse_plist( $good_dict );
 	};
-like( $@, 'key not defined', "Empty key causes parse_plist to die" );
+like( $@, qr/key not defined/, "Empty key causes parse_plist to die" );
 

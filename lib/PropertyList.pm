@@ -1,10 +1,10 @@
-# $Id: PropertyList.pm,v 1.9 2003/01/31 17:20:08 comdog Exp $
+# $Id: PropertyList.pm,v 1.10 2003/02/04 01:52:31 comdog Exp $
 package Mac::PropertyList;
 use strict;
 
 use vars qw($ERROR $XML_head $XML_foot $VERSION);
 
-$VERSION = 0.09;
+$VERSION = 0.10;
 
 =head1 NAME
 
