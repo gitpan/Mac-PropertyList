@@ -1,4 +1,4 @@
-# $Id: false_key.t,v 1.5 2004/01/31 17:20:24 petdance Exp $
+# $Id: false_key.t,v 1.6 2004/02/03 21:25:24 comdog Exp $
 
 use Test::More tests => 3;
 
@@ -39,7 +39,8 @@ TODO: {
     local $TODO = "Doesn't work, but poor Andy doesn't know why.";
 
     my $ok = eval {
-	my $plist = Mac::PropertyList::parse_plist( $good_dict );
-	};
-    like( $@, qr/key not defined/, "Empty key causes parse_plist to die" );
-}
+		my $plist = Mac::PropertyList::parse_plist( $good_dict );
+		};
+    
+	like( $@, qr/key not defined/, "Empty key causes parse_plist to die" );
+	}

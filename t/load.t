@@ -1,15 +1,7 @@
-# $Id: load.t,v 1.5 2002/11/12 22:36:07 comdog Exp $
-BEGIN {
-	use File::Find::Rule;
-	@classes = map { my $x = $_;
-		$x =~ s|^blib/lib/||;
-		$x =~ s|/|::|g;
-		$x =~ s|\.pm$||;
-		$x;
-		} File::Find::Rule->file()->name( '*.pm' )->in( 'blib/lib' );
-	}
+# $Id: load.t,v 1.6 2004/02/03 13:08:50 comdog Exp $
 
-use Test::Builder;
+BEGIN { @classes = qw(Mac::PropertyList) }
+
 use Test::More tests => scalar @classes;
 
 foreach my $class ( @classes )

@@ -1,4 +1,4 @@
-# $Id: write.t,v 1.5 2004/01/31 16:54:11 petdance Exp $
+# $Id: write.t,v 1.6 2004/02/03 13:08:30 comdog Exp $
 
 use Test::More tests => 3;
 
@@ -71,4 +71,3 @@ my $string = Mac::PropertyList::plist_as_string( $plist );
 print STDERR "\n$string\n" if $ENV{DEBUG};
 
 ok( ($string eq $nested_dict) || ($string eq $nested_dict_alt), "Nested dict" );
-
