@@ -1,10 +1,10 @@
-# $Id: PropertyList.pm,v 1.10 2003/02/04 01:52:31 comdog Exp $
+# $Id: PropertyList.pm,v 1.12 2004/01/31 17:24:00 petdance Exp $
 package Mac::PropertyList;
 use strict;
 
 use vars qw($ERROR $XML_head $XML_foot $VERSION);
 
-$VERSION = 0.10;
+$VERSION = 0.11;
 
 =head1 NAME
 
@@ -119,7 +119,7 @@ what the real deal looks like.
 
 =cut
 
-my $Debug = $ENV{PLIST_DEBUG};
+my $Debug = $ENV{PLIST_DEBUG} || 0;
 
 $XML_head =<<"XML";
 <?xml version="1.0" encoding="UTF-8"?>

@@ -1,4 +1,4 @@
-# $Id: parse.t,v 1.6 2002/11/12 22:36:07 comdog Exp $
+# $Id: parse.t,v 1.7 2004/01/31 16:54:11 petdance Exp $
 
 use Test::More tests => 39;
 
@@ -101,7 +101,7 @@ foreach my $string ( ( $string0_9, $string1_0 ) )
 	is( $plist->{value}, 'This is it', 'value is right for string'           );
 	}
 	
-my $plist = Mac::PropertyList::parse_plist( $nested_dict );
+$plist = Mac::PropertyList::parse_plist( $nested_dict );
 
 isa_ok( $plist, 'HASH'            );
 ok( exists $plist->{type},  'type key exists for nested dict'          );

@@ -1,4 +1,4 @@
-# $Id: plists.t,v 1.3 2002/12/18 10:29:02 comdog Exp $
+# $Id: plists.t,v 1.4 2004/01/31 16:54:11 petdance Exp $
 BEGIN {
 	use File::Find::Rule;
 	@plists = File::Find::Rule->file()->name( '*.plist' )->in( 'plists' );
@@ -10,12 +10,14 @@ use Time::HiRes qw(tv_interval gettimeofday);
 
 use Mac::PropertyList;
 
+my $debug = $ENV{PLIST_DEBUG} || 0;
+
 foreach my $file ( @plists )
 	{
-	print STDERR "Working on $file\n" if $ENV{PLIST_DEBUG} > 1;
+	diag( "Working on $file" ) if $debug;
 	unless( open FILE, $file )
 		{
-		ok( 0, "Could not open $file" );
+		fail( "Could not open $file" );
 		}
 		
 	my $data = do { local $/; <FILE> };
@@ -28,7 +30,7 @@ foreach my $file ( @plists )
 	my $time2 = [ gettimeofday ];
 
 	my $elapsed = tv_interval( $time1, $time2 );
-	print STDERR "\n$file [$b bytes] parsed in $elapsed seconds\n";
+	diag( "$file [$b bytes] parsed in $elapsed seconds" );
 
 	isa_ok( $plist, 'HASH' );
 	}
