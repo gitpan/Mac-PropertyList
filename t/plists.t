@@ -1,4 +1,4 @@
-# $Id: plists.t,v 1.5 2004/02/03 14:04:51 comdog Exp $
+# $Id: plists.t,v 1.7 2004/09/03 01:11:41 comdog Exp $
 BEGIN { @plists = <plists/*.plist>; }
 
 use Test::More;
@@ -24,9 +24,9 @@ foreach my $file ( @plists )
 
 	my $b = length $data;
 
-	my $time1 = [ Time::HiRes::gettimeofday ];
+	my $time1 = [ Time::HiRes::gettimeofday() ];
 	my $plist = Mac::PropertyList::parse_plist( $data );
-	my $time2 = [ Time::HiRes::gettimeofday ];
+	my $time2 = [ Time::HiRes::gettimeofday() ];
 
 	my $elapsed = Time::HiRes::tv_interval( $time1, $time2 );
 	diag( "$file [$b bytes] parsed in $elapsed seconds" );
