@@ -1,4 +1,4 @@
-# $Id: write.t,v 1.3 2002/09/02 04:06:11 comdog Exp $
+# $Id: write.t,v 1.4 2002/11/12 22:36:07 comdog Exp $
 
 use Test::More tests => 3;
 
@@ -62,7 +62,7 @@ foreach my $start ( ( $array, $dict ) )
 	{
 	my $plist  = Mac::PropertyList::parse_plist( $start );
 	my $string = Mac::PropertyList::plist_as_string( $plist );
-	is( $string, $start );
+	is( $string, $start, 'Original and rewritten string match' );
 	}
 
 my $plist  = Mac::PropertyList::parse_plist( $nested_dict );

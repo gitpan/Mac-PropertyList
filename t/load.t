@@ -1,4 +1,4 @@
-# $Id: load.t,v 1.4 2002/09/09 17:29:57 comdog Exp $
+# $Id: load.t,v 1.5 2002/11/12 22:36:07 comdog Exp $
 BEGIN {
 	use File::Find::Rule;
 	@classes = map { my $x = $_;
@@ -14,5 +14,5 @@ use Test::More tests => scalar @classes;
 
 foreach my $class ( @classes )
 	{
-	use_ok( $class ) or Test::Builder->BAILOUT();
+	print "bail out! $class did not compile\n" unless use_ok( $class );
 	}
