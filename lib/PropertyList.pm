@@ -1,4 +1,4 @@
-# $Id: PropertyList.pm,v 1.24 2006/01/18 02:49:45 comdog Exp $
+# $Id: PropertyList.pm,v 1.26 2006/05/16 06:01:42 comdog Exp $
 package Mac::PropertyList;
 use strict;
 
@@ -14,7 +14,7 @@ use base qw(Exporter);
 	'all' => \@EXPORT_OK,
 	);
 	
-$VERSION = sprintf "%d.%02d", q$Revision: 1.24 $ =~ m/ (\d+) \. (\d+) /xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.26 $ =~ m/ (\d+) \. (\d+) /xg;
 
 =head1 NAME
 
@@ -506,7 +506,10 @@ sub push    { }
 sub splice  { }
 sub count   { return scalar @{ $_[0]->value } }
 
-sub values { my @v = map { $_->value } @{ $_[0]->value }; wantarray ? @v : \@v }
+sub values 
+	{ 
+	my @v = map { $_->value } @{ $_[0]->value }; 
+	wantarray ? @v : \@v}
 
 sub as_basic_data
 	{
