@@ -1,4 +1,4 @@
-# $Id: PropertyList.pm,v 1.26 2006/05/16 06:01:42 comdog Exp $
+# $Id: PropertyList.pm,v 1.28 2006/05/16 06:14:02 comdog Exp $
 package Mac::PropertyList;
 use strict;
 
@@ -7,14 +7,18 @@ use Carp qw(croak);
 
 use base qw(Exporter);
 
-@EXPORT_OK = qw( parse_plist plist_as_string create_from_hash
+@EXPORT_OK = qw( 
+	parse_plist 
+	plist_as_string 
+	parse_plist_file
+	create_from_hash
 	create_from_array );
 
 %EXPORT_TAGS = (
 	'all' => \@EXPORT_OK,
 	);
 	
-$VERSION = sprintf "%d.%02d", q$Revision: 1.26 $ =~ m/ (\d+) \. (\d+) /xg;
+$VERSION = sprintf "%d.%02d", q$Revision: 1.28 $ =~ m/ (\d+) \. (\d+) /xg;
 
 =head1 NAME
 

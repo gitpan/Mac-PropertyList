@@ -1,6 +1,6 @@
-# $Id: import.t,v 1.1 2004/12/02 09:16:38 comdog Exp $
+# $Id: import.t,v 1.2 2006/05/16 06:12:38 comdog Exp $
 
-use Test::More tests => 10;
+use Test::More tests => 12;
 
 require_ok( 'Mac::PropertyList' );
 
