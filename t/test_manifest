@@ -1,4 +1,4 @@
-# $Id: test_manifest,v 1.9 2006/01/18 02:49:45 comdog Exp $
+# $Id: test_manifest,v 1.10 2006/05/18 00:23:55 comdog Exp $
 load.t
 pod.t
 pod_coverage.t
@@ -8,6 +8,7 @@ container.t
 array.t
 dict.t
 parse.t
+parse_plist_fh.t
 write.t
 plists.t
 false_key.t
