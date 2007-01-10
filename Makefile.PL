@@ -1,24 +1,13 @@
-# $Id: Makefile.PL,v 1.15 2004/09/03 01:06:08 comdog Exp $
+# $Id: Makefile.PL,v 1.16 2007/01/10 04:31:57 comdog Exp $
 use ExtUtils::MakeMaker;
 
-eval "use Test::Manifest";
-
-unless( $@ )
-	{
-	*ExtUtils::MM_Any::test_via_harness = sub	 
-		{ 	 
-		my($self, $perl, $tests) = @_; 	 
-		 
-		return qq|\t$perl "-MTest::Manifest" | . 	 
-			qq|"-e" "run_t_manifest(\$(TEST_VERBOSE), '\$(INST_LIB)', | . 	 
-			qq|'\$(INST_ARCHLIB)')"\n|; 	 
-		}
-	}
+eval "use Test::Manifest 1.14";
 
 WriteMakefile
 	(
 	'NAME'                 => 'Mac::PropertyList',
 	'VERSION_FROM'         => 'lib/PropertyList.pm',
+	'LICENSE'       => 'perl',
 	'PREREQ_PM' => { 
 		'MIME::Base64' => '0',
 		'Test::More'   => '0',
