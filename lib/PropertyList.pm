@@ -1,9 +1,13 @@
-# $Id: PropertyList.pm,v 1.30 2007/01/10 04:31:57 comdog Exp $
+# $Id: PropertyList.pm 2492 2008-01-16 11:26:16Z comdog $
 package Mac::PropertyList;
 use strict;
 
+use warnings;
+no warnings;
+
 use vars qw($ERROR $XML_head $XML_foot $VERSION @EXPORT_OK %EXPORT_TAGS);
 use Carp qw(croak carp);
+use Data::Dumper;
 
 use base qw(Exporter);
 
@@ -19,7 +23,7 @@ use base qw(Exporter);
 	'all' => \@EXPORT_OK,
 	);
 	
-$VERSION = sprintf "%d.%02d", q$Revision: 1.30 $ =~ m/ (\d+) \. (\d+) /xg;
+$VERSION = sprintf "%d.%02d", qw( 1 31 );
 
 =head1 NAME
 
@@ -504,7 +508,12 @@ sub value
 	
 sub type { my $r = ref $_[0] ? ref $_[0] : $_[0]; $r =~ s/.*:://; $r; }
 
-sub new { bless $_[1], $_[0] }
+sub new 
+	{ 
+	#print STDERR "Got [@_]\n"; 
+
+	bless $_[1], $_[0] 
+	}
 	
 sub write_open  { $_[0]->write_either(); }
 sub write_close { $_[0]->write_either('/'); }
@@ -527,10 +536,11 @@ use base qw(Mac::PropertyList::Item);
 sub new
 	{
 	my $class = CORE::shift;
+	my $item  = CORE::shift;
 	
-	if( ref $_[0] )
+	if( ref $item )
 		{
-		return bless $_[0], $class;
+		return bless $item, $class;
 		}
 		
 	my $empty = do {
@@ -591,6 +601,12 @@ sub write
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 package Mac::PropertyList::dict;
 use base qw(Mac::PropertyList::Container);
+
+sub new {
+	#print STDERR Data::Dumper::Dumper( $_[1] );
+	
+	$_[0]->SUPER::new( $_[1] );
+	}
 
 sub delete { delete ${ $_[0]->value }{$_[1]}         }
 sub exists { exists ${ $_[0]->value }{$_[1]} ? 1 : 0 }
@@ -734,7 +750,7 @@ use base qw(Mac::PropertyList::Boolean);
 =head1 SOURCE AVAILABILITY
 
 This source is part of a SourceForge project which always has the
-latest sources in CVS, as well as all of the previous releases.
+latest sources in SVN, as well as all of the previous releases.
 
 	http://sourceforge.net/projects/brian-d-foy/
 
@@ -769,7 +785,7 @@ brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2004-2007 brian d foy.  All rights reserved.
+Copyright (c) 2004-2008 brian d foy.  All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

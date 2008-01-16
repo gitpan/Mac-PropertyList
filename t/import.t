@@ -1,4 +1,4 @@
-# $Id: import.t,v 1.3 2006/05/18 00:23:55 comdog Exp $
+# $Id: import.t 1774 2006-05-18 00:23:55Z comdog $
 
 use Test::More 'no_plan';
 

@@ -1,4 +1,4 @@
-# $Id: dict.t,v 1.1 2004/02/03 13:06:24 comdog Exp $
+# $Id: dict.t 1103 2004-02-03 13:06:24Z comdog $
 
 use Test::More tests => 15;
 

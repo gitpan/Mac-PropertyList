@@ -1,4 +1,4 @@
-$Id: README,v 1.2 2005/06/06 00:32:50 comdog Exp $
+$Id: README 1645 2005-06-06 00:32:50Z comdog $
 
 This module parses the property lists rom Mac OS X, at
 least the ones from the pre-Tiger releases. I wrote this

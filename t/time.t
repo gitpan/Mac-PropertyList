@@ -1,4 +1,4 @@
-# $Id: time.t,v 1.1 2002/09/09 17:30:10 comdog Exp $
+# $Id: time.t 331 2002-09-09 17:30:10Z comdog $
 
 use Test::More tests => 1;
 

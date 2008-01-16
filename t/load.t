@@ -1,4 +1,4 @@
-# $Id: load.t,v 1.6 2004/02/03 13:08:50 comdog Exp $
+# $Id: load.t 1105 2004-02-03 13:08:50Z comdog $
 
 BEGIN { @classes = qw(Mac::PropertyList) }
 
