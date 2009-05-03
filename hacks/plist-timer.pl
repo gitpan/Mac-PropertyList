@@ -1,4 +1,4 @@
-# $Id: plist-timer.pl 1645 2005-06-06 00:32:50Z comdog $
+# $Id$
 
 use Mac::PropertyList;
 use Time::HiRes;

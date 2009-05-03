@@ -1,5 +1,3 @@
-# $Id: time.t 331 2002-09-09 17:30:10Z comdog $
-
 use Test::More tests => 1;
 
 use Mac::PropertyList;

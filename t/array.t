@@ -1,5 +1,3 @@
-# $Id: array.t 1103 2004-02-03 13:06:24Z comdog $
-
 use Test::More tests => 5;
 
 use Mac::PropertyList;

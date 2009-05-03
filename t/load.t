@@ -1,6 +1,4 @@
-# $Id: load.t 1105 2004-02-03 13:08:50Z comdog $
-
-BEGIN { @classes = qw(Mac::PropertyList) }
+BEGIN { @classes = qw(Mac::PropertyList Mac::PropertyList::ReadBinary) }
 
 use Test::More tests => scalar @classes;
 

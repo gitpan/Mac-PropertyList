@@ -1,5 +1,3 @@
-# $Id: dict.t 1103 2004-02-03 13:06:24Z comdog $
-
 use Test::More tests => 15;
 
 use Mac::PropertyList;

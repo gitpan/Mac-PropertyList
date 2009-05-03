@@ -1,4 +1,3 @@
-# $Id: plists.t 1405 2004-09-03 01:11:41Z comdog $
 BEGIN { @plists = <plists/*.plist>; }
 
 use Test::More;

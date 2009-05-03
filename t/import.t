@@ -1,5 +1,3 @@
-# $Id: import.t 1774 2006-05-18 00:23:55Z comdog $
-
 use Test::More 'no_plan';
 
 require_ok( 'Mac::PropertyList' );
