@@ -1,6 +1,10 @@
 1.32 - Wed Sep 16 23:03:57 CDT 2009
 	* Things seen to work, so lets release it.
 
+1.33 - Tue Nov 24 08:00:33 2009
+	* Hey, you have to decode those XML entities as you read
+	them.
+
 1.31_01 - Sun May  3 06:40:14 2009
 	* Added initial support for reading binary property lists
 
