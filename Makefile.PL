@@ -13,10 +13,9 @@ WriteMakefile
 	'AUTHOR'       => 'brian d foy <bdfoy@cpan.org>',
 
 	'PREREQ_PM' => {
-		'Math::BigInt'  => '0',
-		'MIME::Base64'  => '0',
-		'Test::More'    => '0',
-		'XML::Entities' => '0',
+		'Math::BigInt' => '0',
+		'MIME::Base64' => '0',
+		'Test::More'   => '0',
 		},
 
 	'PM'                   => {
@@ -25,5 +24,6 @@ WriteMakefile
 		},
 
 	clean                  => { FILES => 'Mac-PropertyList-*' },
+
 	);
 

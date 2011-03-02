@@ -7,7 +7,6 @@ no warnings;
 use vars qw($ERROR $XML_head $XML_foot $VERSION @EXPORT_OK %EXPORT_TAGS);
 use Carp qw(croak carp);
 use Data::Dumper;
-use XML::Entities;
 
 use base qw(Exporter);
 
@@ -17,14 +16,14 @@ use base qw(Exporter);
 	parse_plist_file
 	plist_as_string
 	create_from_hash
-	create_from_array 
+	create_from_array
 	);
 
 %EXPORT_TAGS = (
 	'all' => \@EXPORT_OK,
 	);
 
-$VERSION = '1.33';
+$VERSION = '1.32_01';
 
 =head1 NAME
 
@@ -55,28 +54,29 @@ Mac::PropertyList - work with Mac plists at a low level
 =head1 DESCRIPTION
 
 This module is a low-level interface to the Mac OS X Property List
-(plist) format. You probably shouldn't use this in applications--build
-interfaces on top of this so you don't have to put all the heinous
-multi-level object stuff where people have to look at it.
+(plist) format.  You probably shouldn't use this in
+applications---build interfaces on top of this so you don't have to
+put all the heinous multi-level object stuff where people have to look
+at it.
 
 You can parse a plist file and get back a data structure. You can take
-that data structure and get back the plist as XML. If you want to
+that data structure and get back the plist as XML.  If you want to
 change the structure inbetween that's your business. :)
 
-You don't need to be on Mac OS X to use this. It simply parses and
+You don't need to be on Mac OS X to use this.  It simply parses and
 manipulates a text format that Mac OS X uses.
 
 =head2 The Property List format
 
-The MacOS X Property List format is simple XML. You can read the DTD
+The MacOS X Property List format is simple XML.  You can read the DTD
 to get the details.
 
 	http://www.apple.com/DTDs/PropertyList-1.0.dtd
 
-One big problem exists--its dict type uses a flat structure to list
+One big problem exists---its dict type uses a flat structure to list
 keys and values so that values are only associated with their keys by
 their position in the file rather than by the structure of the DTD.
-This problem is the major design hinderance in this module. A smart
+This problem is the major design hinderance in this module.  A smart
 XML format would have made things much easier.
 
 If the parse_plist encounters an empty key tag in a dict structure
@@ -89,9 +89,9 @@ to remember the type of thing so we can go back to the XML format.
 Perl treats numbers and strings the same, but the plist format
 doesn't.
 
-Therefore, everything C<Mac::PropertyList> creates is an object of some
-sort. Container objects like C<Mac::PropertyList::array> and
-C<Mac::PropertyList::dict> hold other objects.
+Therefore, everything Mac::PropertyList creates is an object of some
+sort.  Container objects like Mac::PropertyList::array and
+Mac::PropertyList::dict hold other objects.
 
 There are several types of objects:
 
@@ -111,7 +111,7 @@ Create the object.
 
 =item value
 
-Access the value of the object. At the moment you cannot change the
+Access the value of the object.  At the moment you cannot change the
 value
 
 =item type
@@ -166,7 +166,7 @@ will be imported unless you ask for it.
 
 =item parse_plist( TEXT )
 
-Parse the XML plist in TEXT and return the C<Mac::PropertyList>
+Parse the XML plist in TEXT and return the Mac::PropertyList
 object.
 
 =cut
@@ -180,8 +180,10 @@ sub parse_plist
 	my $plist = do {
 		if( $text =~ /\A<\?xml/ ) # XML plists
 			{
+			$text =~ s/<!--(?:[\d\D]*?)-->//g;
 			# we can handle either 0.9 or 1.0
 			$text =~ s|^<\?xml.*?>\s*<!DOC.*>\s*<plist.*?>\s*||;
+
 			$text =~ s|\s*</plist>\s*$||;
 
 			my $text_source = Mac::PropertyList::TextSource->new( $text );
@@ -198,7 +200,7 @@ sub parse_plist
 
 =item parse_plist_fh( FILEHANDLE )
 
-Parse the XML plist from FILEHANDLE and return the C<Mac::PropertyList>
+Parse the XML plist from FILEHANDLE and return the Mac::PropertyList
 data structure. Returns false if the arguments is not a reference.
 
 You can do this in a couple of ways. You can open the file with a
@@ -227,7 +229,7 @@ sub parse_plist_fh
 
 =item parse_plist_file( FILE_PATH )
 
-Parse the XML plist in FILE_PATH and return the C<Mac::PropertyList>
+Parse the XML plist in FILE_PATH and return the Mac::PropertyList
 data structure. Returns false if the file does not exist.
 
 Alternately, you can pass a filehandle reference, but that just
@@ -256,7 +258,7 @@ sub parse_plist_file
 
 Create a plist dictionary from the hash reference.
 
-The values of the hash can only be simple scalars--not references.
+The values of the hash can only be simple scalars---not references.
 Reference values are silently ignored.
 
 Returns a string representing the hash in the plist format.
@@ -294,7 +296,7 @@ sub create_from_hash
 
 Create a plist array from the array reference.
 
-The values of the array can only be simple scalars--not references.
+The values of the array can only be simple scalars---not references.
 Reference values are silently ignored.
 
 Returns a string representing the array in the plist format.
@@ -324,7 +326,7 @@ sub create_from_array
 	return $string;
 	}
 
-sub read_string  { Mac::PropertyList::string ->new( XML::Entities::decode( 'all', $_[0] ) )  }
+sub read_string  { Mac::PropertyList::string ->new( $_[0] )  }
 sub read_integer { Mac::PropertyList::integer->new( $_[0] )  }
 sub read_date    { Mac::PropertyList::date   ->new( $_[0] )  }
 sub read_real    { Mac::PropertyList::real   ->new( $_[0] )  }
@@ -386,7 +388,7 @@ sub read_dict
 		my $key;
 		while (not defined $key)
 			{
-			if (s[^\s*<key>(.*?)</key>][]s)
+			if( s[^\s*<key>(.*?)</key>][]s )
 				{
 				$key = $1;
 				# Bring this back if you want this behavior:
@@ -420,7 +422,7 @@ sub read_array
 	local $_ = $source->get_line;
 	while( not s|^\s*</array>|| )
 		{
-		$source->put_line( $_ );
+		$source->put_line( $_ ) if $_;
 		push @array, read_next( $source );
 		$_ = $source->get_line;
 		}
@@ -461,8 +463,9 @@ sub plist_as_string
 
 =item plist_as_perl
 
-Return the plist data structure as an unblessed Perl data structure.
-There won't be any C<Mac::PropertyList> objects in the results.
+Return the plist data structure as an unblessed Perl data
+structure. There won't be any C<Mac::PropertyList> objects
+in the results.
 
 =cut
 
@@ -640,12 +643,12 @@ sub write
 sub as_perl
 	{
 	my $self  = CORE::shift;
-	
+
 	my @array = map { $_->as_perl } $self->_elements;
-	
+
 	return \@array;
 	}
-	
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 package Mac::PropertyList::dict;
 use base qw(Mac::PropertyList::Container);
@@ -727,13 +730,13 @@ sub write
 sub as_perl
 	{
 	my $self  = CORE::shift;
-	
-	my %dict = map { 
+
+	my %dict = map {
 		my $v = $self->value($_);
 		$v = $v->as_perl if eval { $v->can( 'as_perl' ) };
-		$_, $v 
+		$_, $v
 		} $self->keys;
-	
+
 	return \%dict;
 	}
 
@@ -832,8 +835,8 @@ help figuring out the recursion for nested structures.
 Mike Ciul provided some classes for the different input modes, and
 these allow us to optimize the parsing code for each of those.
 
-Ricardo Signes added the C<as_basic_types()> methods so you can dump
-all the plist junk and just play with the data.
+Ricardo Signes added the as_basic_types() methods so you can all the
+plist junk and just play with the data.
 
 =head1 TO DO
 
@@ -852,7 +855,7 @@ brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2004-2009 brian d foy.  All rights reserved.
+Copyright (c) 2004-2011 brian d foy.  All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

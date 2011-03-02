@@ -8,7 +8,6 @@ array.t
 dict.t
 parse.t
 parse_plist_fh.t
-decode_entities.t
 write.t
 plists.t
 false_key.t
