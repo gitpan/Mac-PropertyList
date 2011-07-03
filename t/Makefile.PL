@@ -8,7 +8,7 @@ WriteMakefile
 	(
 	'NAME'         => 'Mac::PropertyList',
 	'ABSTRACT'     => 'work with Mac plists at a low level',
-	'VERSION_FROM' => 'lib/Mac/PropertyList.pm',
+	'VERSION_FROM' => 'lib/PropertyList.pm',
 	'LICENSE'      => 'perl',
 	'AUTHOR'       => 'brian d foy <bdfoy@cpan.org>',
 
@@ -19,7 +19,11 @@ WriteMakefile
 		'XML::Entities' => '0',
 		},
 
-	clean                  => { FILES => 'Mac-PropertyList-*' },
+	'PM'                   => {
+		'lib/PropertyList.pm'    => '$(INST_LIBDIR)/PropertyList.pm',
+		'lib/ReadBinary.pm'      => '$(INST_LIBDIR)/PropertyList/ReadBinary.pm',
+		},
 
+	clean                  => { FILES => 'Mac-PropertyList-*' },
 	);
 

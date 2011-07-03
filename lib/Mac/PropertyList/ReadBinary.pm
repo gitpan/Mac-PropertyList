@@ -6,13 +6,14 @@ use vars qw( $VERSION );
 
 use Carp;
 use Data::Dumper;
-use Encode qw(decode);
+use Encode            qw(decode);
 use Mac::PropertyList;
 use Math::BigInt;
-use MIME::Base64 qw(decode_base64);
-use POSIX qw(SEEK_END SEEK_SET);
+use MIME::Base64      qw(decode_base64);
+use POSIX             qw(SEEK_END SEEK_SET);
+use XML::Entities     ();
 
-$VERSION = '1.32';
+$VERSION = '1.33_01';
 
 __PACKAGE__->_run( @ARGV ) unless caller;
 
@@ -54,15 +55,6 @@ See C<Mac::PropertyList> for more details.
 
 =over 4
 
-=cut
-
-sub _run
-	{
-	my $parser = $_[0]->new( $_[1] );
-
-	print Dumper( $parser->plist );
-	}
-
 =item new( FILENAME | SCALAR_REF | FILEHANDLE )
 
 Opens the data source, doing the right thing for filenames,
@@ -99,8 +91,7 @@ sub _object_size
 	$_[0]->_trailer->{object_count} * $_[0]->_trailer->{offset_size}
 	}
 
-sub _read
-	{
+sub _read {
 	my( $self, $thingy ) = @_;
 
 	$self->{fh} = $self->_get_filehandle;
@@ -113,23 +104,23 @@ sub _read
     $self->{parsed} = $top;
 	}
 
-sub _get_filehandle
-	{
+sub _get_filehandle {
 	my( $self, $thingy ) = @_;
 
 	my $fh;
 
-	unless( ref $self->_source ) # filename
-		{
-		open $fh, "<", $self->_source or croak "Could not open source! $!";
+	if( ! ref $self->_source ) { # filename
+		open $fh, "<", $self->_source
+			or die "Could not open [@{[$self->_source]}]! $!";
 		}
-	elsif( ref $self->_source eq ref \ ''  ) # scalar ref
-		{
+	elsif( ref $self->_source eq ref \ ''  ) { # scalar ref
 		open $fh, "<", $self->_source or croak "Could not open file! $!";
 		}
-	elsif( ref $self->_source ) # filehandle
-		{
+	elsif( ref $self->_source ) { # filehandle
 		$fh = $self->_source;
+		}
+	else {
+		croak( 'No source to read from!' );
 		}
 
 	$fh;
@@ -241,7 +232,7 @@ my $type_readers = {
 		my( $buffer, $value );
 		read $self->_fh, $buffer, $byte_length;
 
-		my @formats = qw( a a f d );
+		my @formats = qw( a a f> d> );
 		my @values = unpack $formats[$length], $buffer;
 
 		return Mac::PropertyList::real->new( $values[0] );
@@ -249,20 +240,22 @@ my $type_readers = {
 
 	3 => sub { # date
 		my( $self, $length ) = @_;
-		croak "Real > 8 bytes" if $length > 3;
-		croak "Bad length [$length]" if $length < 2;
-
+		croak "Date != 8 bytes" if $length != 3;
 		my $byte_length = 1 << $length;
 
 		my( $buffer, $value );
 		read $self->_fh, $buffer, $byte_length;
 
-		my @formats = qw( a a f d );
-		my @values = unpack $formats[$length], $buffer;
+		my @values = unpack 'd>', $buffer;
 
 		$self->{MLen} += 9;
 
-		return Mac::PropertyList::date->new( $values[0] );
+		my $adjusted_time = POSIX::strftime(
+			"%FT%H:%M:%SZ",
+			gmtime( 978307200 + $values[0])
+			);
+
+		return Mac::PropertyList::date->new( $adjusted_time );
 		},
 
 	4 => sub { # binary data
@@ -274,7 +267,6 @@ my $type_readers = {
 		return Mac::PropertyList::data->new( $buffer );
 		},
 
-
 	5 => sub { # utf8 string
 		my( $self, $length ) = @_;
 
@@ -282,7 +274,10 @@ my $type_readers = {
 		read $self->_fh, $buffer, $length;
 
 		# pack to make it unicode
-		$buffer = pack "U0C*", unpack "C*", $buffer;
+		$buffer = XML::Entities::decode(
+			'all',
+			pack "U0C*", unpack "C*", $buffer
+			);
 
 		return Mac::PropertyList::string->new( $buffer );
 		},
@@ -293,7 +288,10 @@ my $type_readers = {
 		my( $buffer, $value );
 		read $self->_fh, $buffer, 2 * $length;
 
-		$buffer = decode( "UTF-16BE", $buffer );
+		$buffer = XML::Entities::decode(
+			'all',
+			Encode::decode( "UTF-16BE", $buffer )
+			);
 
 		return Mac::PropertyList::ustring->new( $buffer );
 		},
@@ -371,6 +369,12 @@ sub _read_object
 }
 
 =back
+
+=head1 SEE ALSO
+
+Some of the ideas are cribbed from CFBinaryPList.c
+
+	http://opensource.apple.com/source/CF/CF-550/CFBinaryPList.c
 
 =head1 SOURCE AVAILABILITY
 
