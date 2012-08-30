@@ -24,7 +24,9 @@ use parent qw(Exporter);
 	'all' => \@EXPORT_OK,
 	);
 
-$VERSION = '1.35';
+$VERSION = '1.37';
+
+=encoding utf8
 
 =head1 NAME
 
@@ -32,9 +34,10 @@ Mac::PropertyList - work with Mac plists at a low level
 
 =head1 SYNOPSIS
 
-	use Mac::PropertyList;
+	use Mac::PropertyList qw(:all);
 
 	my $data  = parse_plist( $text );
+	my $perl  = $data->as_perl;
 
 		# == OR ==
 	my $data  = parse_plist_file( $filename );
@@ -74,7 +77,7 @@ to get the details.
 
 	http://www.apple.com/DTDs/PropertyList-1.0.dtd
 
-One big problem exists--its dict type uses a flat structure to list
+One big problem exists—its dict type uses a flat structure to list
 keys and values so that values are only associated with their keys by
 their position in the file rather than by the structure of the DTD.
 This problem is the major design hinderance in this module. A smart
@@ -103,6 +106,12 @@ There are several types of objects:
 	Mac::PropertyList::date
 	Mac::PropertyList::array
 	Mac::PropertyList::dict
+	Mac::PropertyList::true
+	Mac::PropertyList::false
+
+Note that the Xcode property list editor abstracts the C<true> and
+C<false> objects as just C<Boolean>. They are separate tags in the
+plist format though.
 
 =over 4
 
@@ -459,8 +468,7 @@ Return the plist data structure as XML in the Mac Property List format.
 
 =cut
 
-sub plist_as_string
-	{
+sub plist_as_string {
 	my $object = CORE::shift;
 
 	my $string = $XML_head;
@@ -475,20 +483,12 @@ sub plist_as_string
 =item plist_as_perl
 
 Return the plist data structure as an unblessed Perl data structure.
-There won't be any C<Mac::PropertyList> objects in the results.
+There won't be any C<Mac::PropertyList> objects in the results. This
+is really just C<as_perl>.
 
 =cut
 
-sub plist_as_perl
-	{
-	my $object = CORE::shift;
-
-	my $string = '$VAR = ';
-
-	$string .= $object->as_perl;
-
-	return $string;
-	}
+sub plist_as_perl { $_[0]->as_perl }
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 package Mac::PropertyList::Source;
@@ -715,8 +715,7 @@ sub write {
 	return $string;
 	}
 
-sub as_perl
-	{
+sub as_perl {
 	my $self  = CORE::shift;
 
 	my %dict = map {
@@ -841,7 +840,7 @@ brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2004-2011 brian d foy.  All rights reserved.
+Copyright (c) 2004-2012 brian d foy.  All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

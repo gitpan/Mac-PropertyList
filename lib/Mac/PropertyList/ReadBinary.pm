@@ -13,9 +13,11 @@ use MIME::Base64      qw(decode_base64);
 use POSIX             qw(SEEK_END SEEK_SET);
 use XML::Entities     ();
 
-$VERSION = '1.35';
+$VERSION = '1.37';
 
 __PACKAGE__->_run( @ARGV ) unless caller;
+
+=encoding utf8
 
 =head1 NAME
 
@@ -30,7 +32,6 @@ Mac::PropertyList::ReadBinary - read binary property list files
 
 	my $plist = $parser->plist;
 
-
 	# use indirectly, automatically selects right reader
 	use Mac::PropertyList;
 
@@ -39,14 +40,14 @@ Mac::PropertyList::ReadBinary - read binary property list files
 =head1 DESCRIPTION
 
 This module is a low-level interface to the Mac OS X Property List
-(plist) format.  You probably shouldn't use this in
-applications---build interfaces on top of this so you don't have to
+(plist) format. You probably shouldn't use this in
+applications—build interfaces on top of this so you don't have to
 put all the heinous multi-level object stuff where people have to look
 at it.
 
 You can parse a plist file and get back a data structure. You can take
 that data structure and get back the plist as XML (but not binary
-yet).  If you want to change the structure inbetween that's your
+yet). If you want to change the structure inbetween that's your
 business. :)
 
 See C<Mac::PropertyList> for more details.
@@ -390,7 +391,7 @@ brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2004-2011 brian d foy.  All rights reserved.
+Copyright (c) 2004-2012 brian d foy.  All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

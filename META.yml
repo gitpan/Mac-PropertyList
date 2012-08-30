@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Mac-PropertyList
-version:            1.35
+version:            1.37
 abstract:           work with Mac plists at a low level
 author:
     - brian d foy <bdfoy@cpan.org>
@@ -13,6 +13,7 @@ build_requires:
 requires:
     Math::BigInt:   0
     MIME::Base64:   0
+    parent:         0
     Test::More:     0
     XML::Entities:  0
 no_index:
