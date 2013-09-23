@@ -13,7 +13,7 @@ use MIME::Base64      qw(decode_base64);
 use POSIX             qw(SEEK_END SEEK_SET);
 use XML::Entities     ();
 
-$VERSION = '1.38_01';
+$VERSION = '1.38_02';
 
 __PACKAGE__->_run( @ARGV ) unless caller;
 
@@ -260,7 +260,7 @@ my $type_readers = {
 		$self->{MLen} += 9;
 
 		my $adjusted_time = POSIX::strftime(
-			"%FT%H:%M:%SZ",
+			"%Y-%m-%dT%H:%M:%SZ",
 			gmtime( 978307200 + $values[0])
 			);
 
@@ -392,7 +392,7 @@ brian d foy, C<< <bdfoy@cpan.org> >>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright © 2004-2012 brian d foy.  All rights reserved.
+Copyright © 2004-2013 brian d foy.  All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

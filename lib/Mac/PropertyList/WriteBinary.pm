@@ -101,7 +101,7 @@ use constant {
     havePack64   => ( eval { pack('Q>', 1153202979583557643) eq "\x10\x01\0\0\0\0\0\x0B" } ? 1 : 0 ),
 };
 
-$VERSION = '1.38_01';
+$VERSION = '1.38_02';
 @EXPORT_OK = qw( as_string );
 
 sub as_string {
@@ -187,7 +187,7 @@ sub _assign_id {
 
     # Serialize the object into $fragment if possible. Since we
     # don't yet know how many bytes we will use to represent object
-    # ids in the final file, don't serialize those yet--- keep them
+    # ids in the final file, don't serialize those yet–keep them
     # as a list of integers for now.
     my($fragment, @objrefs);
 
@@ -442,7 +442,7 @@ sub _as_bplist_fragment { return "\x08"; }
 
 Wim Lewis, C<< <wiml@cpan.org> >>
 
-Copyright E<copy> 2012 Wim Lewis.  All rights reserved.
+Copyright © 2012 Wim Lewis.  All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
