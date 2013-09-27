@@ -25,4 +25,4 @@ requires:
   Time::Local: 0
   XML::Entities: 0
   parent: 0
-version: 1.38_02
+version: 1.39
