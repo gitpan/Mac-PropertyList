@@ -32,7 +32,6 @@ t/false_key.t
 t/get_filehandle.t
 t/import.t
 t/load.t
-t/Makefile.PL
 t/parse.t
 t/parse_plist_fh.t
 t/plists.t
